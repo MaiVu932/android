@@ -37,20 +37,44 @@ public class CountryAdapter extends BaseAdapter {
         return 0;
     }
 
+    private class ViewHodel {
+        TextView tvName, tvCapital;
+        ImageView imageCo;
+    }
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(layout, null);
 
-        //anh xa
-        TextView tvName = (TextView) convertView.findViewById(R.id.tv_name);
-        TextView tvCapital = (TextView) convertView.findViewById(R.id.tv_capital);
-        ImageView imgCo = (ImageView) convertView.findViewById(R.id.img_country);
+        ViewHodel viewHodel;
+
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(layout, null);
+
+            viewHodel = new ViewHodel();
+            //anh xa
+            viewHodel.tvName = (TextView) convertView.findViewById(R.id.tv_name);
+            viewHodel.tvCapital = (TextView) convertView.findViewById(R.id.tv_capital);
+            viewHodel.imageCo = (ImageView) convertView.findViewById(R.id.img_country);
+
+            convertView.setTag(viewHodel);
+        } else {
+            viewHodel = (ViewHodel) convertView.getTag();
+        }
+
+//        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        convertView = inflater.inflate(layout, null);
+//
+//        //anh xa
+//        TextView tvName = (TextView) convertView.findViewById(R.id.tv_name);
+//        TextView tvCapital = (TextView) convertView.findViewById(R.id.tv_capital);
+//        ImageView imgCo = (ImageView) convertView.findViewById(R.id.img_country);
 
         //gan gtri
-        tvName.setText(countryList.get(position).getName());
-        tvCapital.setText(countryList.get(position).getCapital());
-        imgCo.setImageResource(countryList.get(position).getImage());
+        viewHodel.tvName.setText(countryList.get(position).getName());
+        viewHodel.tvCapital.setText(countryList.get(position).getCapital());
+        viewHodel.imageCo.setImageResource(countryList.get(position).getImage());
 
         return convertView;
     }
